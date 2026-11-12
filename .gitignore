@@ -1,0 +1,30 @@
+# —— Python ——
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# —— 环境与凭据（绝不入库）——
+.env
+.secrets/
+user.json
+*.token
+token.tmp
+
+# —— 运行产物 ——
+开发产物/output/
+开发产物/logs/
+开发产物/_selftest_synthetic/
+logs/
+output/
+*.log
+
+# —— 原始/中间数据（体积大，用脚本重跑）——
+*.parquet
+!生产产物/数据库.parquet
+
+# —— 工具与编辑器 ——
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

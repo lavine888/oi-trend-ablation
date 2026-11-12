@@ -1,0 +1,204 @@
+<div align="center">
+
+# OI Trend Ablation
+
+**Lavine Version · 量枢院 Alpha-61**
+
+持仓量变化，能确认期货趋势吗？
+
+一个预注册、可一键复现的**负结果**：**不能。**
+
+**简体中文**
+
+![Version](https://img.shields.io/badge/version-1.0.0-2563eb)
+![Python](https://img.shields.io/badge/python-3.11%2B-3776ab)
+![Data](https://img.shields.io/badge/data-PandaData-e11d48)
+![Result](https://img.shields.io/badge/result-negative-dc2626)
+![Gate](https://img.shields.io/badge/delivery%20gate-35%2F35-15803d)
+[![License](https://img.shields.io/badge/license-GPL--3.0-334155)](LICENSE)
+
+</div>
+
+---
+
+## 一句话结论
+
+在 36 个境内商品期货主力连续序列上，把「持仓量同向扩张」作为唯一新增条件加到一条纯价格趋势
+基线上，**样本外扣费后没有变好**：
+
+| 指标（OOS 2022–2025，扣费 5bp） | 纯趋势 B0 | +持仓确认门 B1 |
+|---|---:|---:|
+| 年化 Sharpe | −0.005 | **−0.033** |
+| 年化波动 | 7.2% | 4.1% |
+| 最大回撤 | −17.7% | −10.1% |
+| 年换手 | 13.6 | **26.7** |
+| **ΔSharpe** | — | **−0.028** |
+
+**盈亏平衡成本 4.4bp/单边**——低于商品期货的现实摩擦（手续费 + 一跳滑点通常 ≥5bp）。
+换句话说：这个门只在"成本几乎为零"的世界里看起来有效，实盘不可交易。
+
+> 记账口径：波动与回撤确实变好了，但那是**暴露减半**的机械结果；同样的效果直接把 B0 乘
+> 0.56 倍杠杆就能拿到，还不用多付那一倍的换手成本。
+
+## 为什么把负结果单独开源
+
+负结果常常被埋掉，于是每个人都在同一个坑里重复交学费。这个仓库把整个过程摊开：
+
+- **预注册先行**：假设、口径、判定档位在看到任何绩效**之前**写死，`sha256` 冻结，交付脚本会校验它没被事后改动。
+- **只改一个变量**：B1 与 B0 的差别只有一道持仓确认门，不是多因子加权、不是调参、不是换宇宙。
+- **四条独立判据同向**：IC、条件收益、置换检验、参数邻域，全部指向"这门没有筛选能力"。
+- **把边界量化**：换月污染有多大、成本多高就失效、多少格参数邻域为正。
+- **一条命令复现**：从平台取数到报告填表到门禁检查，全部脚本化。
+
+## 四条判据
+
+| 判据 | 结果 | 读法 |
+|---|---|---|
+| **IC**（横截面，辅助） | 门自身 0.0043；带门因子 0.0015 **低于**原始动量 0.0073 | 门在削弱信号，不是筛选 |
+| **条件收益**（主证据） | 确认组 5 日 +0.140% vs 未确认组 +0.177%，t = −0.78 | 核心假设方向反了 |
+| **置换检验** | 500 次随机门，观测 −0.028 落在零分布内（p = 0.11，95 分位 +0.089） | 无法区分"真门"与"随机少交易" |
+| **参数邻域** | 4×3 = 12 格仅 3 格为正，最大 +0.093 | 不是"参数没调好" |
+
+### 换月污染被量化了
+
+主力换月会让 `open_interest` 出现水平跳变：换月窗口内 `|ΔOI_5d|` 均值 **0.525**，
+窗口外 **0.112**，相差 4.7 倍。剔除换月窗口后重跑，ΔSharpe 从 −0.028 变成 **−0.174**——
+负得更狠。所以污染只会让门"看起来稍好"，而不是制造了这个负结果。
+
+## 方法
+
+| 编号 | 定义 | 作用 |
+|---|---|---|
+| **B0** | `w = sign(mom60) × 1/N`，5 日调仓，扣费 | 冻结基线：只用价格趋势 |
+| **B1** | `w = sign(mom60) × 1/N × 1[sign(ΔOI_5d) = sign(mom60)]` | 处理组：只加持仓确认门 |
+| **P1** | 用 `Δvolume_5d` 替代 `ΔOI_5d` 的同一道门 | 安慰剂：增益是否只来自"少交易" |
+| **P2** | 逐品种随机置换门标签（保留通过率），500 次 | 零分布与 p 值 |
+| **P3** | B1 按 IS 波动率放大到与 B0 同波动 | 排除"低暴露"解释 |
+
+- 收益：`r_t = settlement_t / pre_settlement_t − 1`（同合约结算价，规避换月跳空）
+- 趋势：`mom60 = Σ_{k=0..59} log(1 + r_{t−k})`；持仓变化：`ΔOI_5d = OI_t / OI_{t−5} − 1`
+- 成本：`cost_t = Σ|w_t − w_{t−1}| × c`，主口径 5bp，敏感性 2/10bp
+- 切分：IS 2016–2021 定宇宙，**OOS 2022–2025 只评估一次**（偏离记录见报告 §10）
+
+## 数据
+
+| 项 | 值 |
+|---|---|
+| 入口 | `panda_data.get_future_daily`（PandaAI / pandata 数据服务） |
+| 面板 | **118,555 行 / 55 个主力连续序列 / 36 个品种入宇宙** |
+| 窗口 | 2016-01-04 ~ 2025-12-31 |
+| 字段 | `settlement` `pre_settlement` `open_interest` `volume` `amount` `dominant_id` |
+| 指纹 | `sha1 d613814cd3cf`（见 `开发产物/output/panel_manifest.json`） |
+
+**新闻来源本期直接排除**，理由是硬的：`panda_data` 全部 reader 中不存在任何带发布时间的
+新闻/文本接口，只有两个报表类文本字段。凑不出"发布时间可追溯"就不做，不拿二手文本替代。
+
+## 快速开始
+
+```powershell
+git clone https://github.com/lavine888/oi-trend-ablation.git
+Set-Location oi-trend-ablation
+python -m pip install -r requirements.txt
+
+# 平台凭据（不要写进任何文件）
+$env:PANDA_DATA_USERNAME = "your-account"
+$env:PANDA_DATA_PASSWORD = "your-password"
+```
+
+一条命令跑完全流程（取数 → 建面板 → 回测 → 验证 → 落生产 → 回填报告 → 交付门禁）：
+
+```powershell
+Set-Location 开发产物
+python scripts\run_pipeline.py            # 首次会拉 2016–2025 全量面板
+python scripts\run_pipeline.py --reuse-panel   # 之后复用本地面板，几秒钟
+```
+
+只想验证代码、不碰平台：
+
+```powershell
+python scripts\selftest_engine.py      # 引擎 9 项自检（未来函数/成本/权重口径）
+python scripts\mock_panel.py           # 生成合成面板（仅代码验证，不可当绩效）
+```
+
+刷新生产产物到最新**已结算**交易日：
+
+```powershell
+python scripts\refresh_production.py
+```
+
+## 仓库结构
+
+```text
+.
+├── 00_预注册_研究设计与口径.md   假设、口径、成本模型、判定档位（冻结）
+├── 00_预注册_冻结记录.json       sha256 与冻结时间，门禁会校验
+├── 研究报告.md                  完整报告：结果、极值案例、风险、价值验收、偏离记录
+├── 开发产物/                     开发侧交付
+│   ├── SKILL.md                  因子逻辑、输入输出、验收要求
+│   ├── scripts/
+│   │   ├── factor.py             取数、建面板、冻结宇宙、出信号
+│   │   ├── backtest.py           B0/B1/P1 扣费回测 + IC/ICIR + 分层 + 成本敏感性
+│   │   ├── validate.py           未来函数、置换、参数邻域、换月剔除、极值案例、风险
+│   │   ├── build_production.py   生成生产 Parquet（8 项质量检查）
+│   │   ├── refresh_production.py 把生产产物刷新到最新已结算交易日
+│   │   ├── run_pipeline.py       单进程全流程
+│   │   ├── fill_report.py        把结果自动写回报告 §4–§7
+│   │   ├── verify_deliverables.py 交付门禁（35 项）
+│   │   ├── pd_client.py          平台入口封装 + 调用留痕
+│   │   └── selftest_engine.py    引擎自检（无平台依赖）
+│   └── references/data_guide.md  数据源、字段、接口限制、清洗口径、已知边界
+└── 生产产物/
+    ├── SKILL.md                  读取契约（主键、字段、禁止行为）
+    ├── 数据库.parquet             最新交易日 36 个品种信号
+    └── build_manifest.json       数据版本、质量检查、来源面板哈希
+```
+
+> 目录名保留中文，是因为它对应量枢院《Alpha 因子开发与生产规则 V2》规定的交付结构
+> （开发产物 / 生产产物）；脚本里的路径解析依赖这个层级。
+
+## 交付门禁
+
+`verify_deliverables.py` 会逐项核对 35 条硬要求，包括：
+
+- 预注册未被事后改动（sha256 一致）
+- 面板来自平台接口直取（而非外部 CSV），且覆盖样本内外
+- 平台调用留痕存在且含成功返回
+- OOS 三变体指标齐全、成本敏感性与盈亏平衡已算、IC 与分层已算
+- 未来函数抽检 0 例不一致
+- 生产 Parquet 字段合规、主键唯一、信号枚举合法、8 项质量检查全过、写入读回一致
+- 报告无 `【待填】` 残留
+
+当前状态：**35/35 通过**（在完整跑过一次 `run_pipeline.py` 的目录上；刚 clone 下来的仓库
+还没有 `output/`，此时门禁会如实报告"结果文件缺失"，属于预期）。
+
+## 边界与诚实披露
+
+1. **持仓量不是资金流。** 交易所汇总未平仓合约数无法区分多空开仓方向，也不能折算金额；
+   本仓库全程不出现"净流入""主力净多"这类未观测到的量。
+2. **成本是近似。** 统一基点模型，缺逐品种手续费与最小变动价位；已给敏感性区间与盈亏平衡点。
+3. **基准本身在样本外失效**（IS 0.625 → OOS −0.005）。两个都不赚钱的策略之间比较，
+   统计功效有限：本报告的负结论是"没有证据表明有增量"，而不是"已证明增量为负"。
+4. **OOS 事实上被评估了 4 次**（格式/工程/数据缺陷修正所致），逐条记录在报告 §10，
+   并说明为什么这不构成"看着结果调参"。
+5. **平台口径**：本仓库的数据入口是 PandaAI/pandata 数据服务；若你的"QuantStudio"指另一套
+   系统，需要换入口重做（见报告 §11）。
+
+## 免责声明
+
+本项目仅用于研究与教育，不代表 PandaAI、量枢院或任何交易所官方，与其无隶属关系。
+所有结果都是历史回测，**不构成投资建议**，也不构成任何交易指令。
+
+## 🌱 相关项目
+
+同一个「证据优先」生态下的姊妹项目：
+
+| 项目 | 说明 |
+| --- | --- |
+| [skill-buffett-moat-screener](https://github.com/lavine888/skill-buffett-moat-screener) | Point-in-time 巴菲特护城河硬筛选（A 股） |
+| [Accounting-Red-Flag-Detector](https://github.com/lavine888/Accounting-Red-Flag-Detector) | A 股财务红旗取证式筛查 |
+| [career-alpha](https://github.com/lavine888/career-alpha) | 证据驱动的职业决策系统 |
+| [flux-evidence-lab](https://github.com/lavine888/flux-evidence-lab) | 可复核 AI 运行的决策留痕 |
+
+## License
+
+[GNU General Public License v3.0](LICENSE)

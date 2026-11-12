@@ -1,0 +1,33 @@
+{
+  "generated_at": "2026-11-13T00:25:27+08:00",
+  "factor_id": "F61",
+  "factor_name": "OIConfirmedTrend",
+  "trade_date": "2026-11-12",
+  "rows": 36,
+  "symbols": 36,
+  "data_version": "F61-20261112-d613814c",
+  "study_window": "20160104 ~ 20251231",
+  "production_window": "20250901 ~ 2026-11-12",
+  "refresh_end_requested": "20261113",
+  "source": "panda_data.get_future_daily",
+  "entry_type": "panda_data_api",
+  "panel_sha1": "d613814cd3cf74245d2cc1b1b575bbb9c81b180c",
+  "quality_checks": {
+    "primary_key_unique": true,
+    "no_null_required": true,
+    "signal_enum_valid": true,
+    "score_in_range": true,
+    "dates_iso": true,
+    "single_trade_date": true,
+    "data_version_single": true,
+    "has_rows": true,
+    "all_passed": true
+  },
+  "readback_ok": true,
+  "signal_counts": {
+    "hold": 16,
+    "sell": 15,
+    "buy": 5
+  },
+  "note": "研究窗口冻结不变；本文件只把最新交易日的信号刷新到当期"
+}
