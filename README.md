@@ -188,17 +188,6 @@ python scripts\refresh_production.py
 本项目仅用于研究与教育，不代表 PandaAI、量枢院或任何交易所官方，与其无隶属关系。
 所有结果都是历史回测，**不构成投资建议**，也不构成任何交易指令。
 
-## 🌱 相关项目
-
-同一个「证据优先」生态下的姊妹项目：
-
-| 项目 | 说明 |
-| --- | --- |
-| [skill-buffett-moat-screener](https://github.com/lavine888/skill-buffett-moat-screener) | Point-in-time 巴菲特护城河硬筛选（A 股） |
-| [Accounting-Red-Flag-Detector](https://github.com/lavine888/Accounting-Red-Flag-Detector) | A 股财务红旗取证式筛查 |
-| [career-alpha](https://github.com/lavine888/career-alpha) | 证据驱动的职业决策系统 |
-| [flux-evidence-lab](https://github.com/lavine888/flux-evidence-lab) | 可复核 AI 运行的决策留痕 |
-
 ## License
 
 [GNU General Public License v3.0](LICENSE)
