@@ -10,6 +10,7 @@
 
 **简体中文**
 
+[![CI](https://github.com/lavine888/oi-trend-ablation/actions/workflows/ci.yml/badge.svg)](https://github.com/lavine888/oi-trend-ablation/actions/workflows/ci.yml)
 ![Version](https://img.shields.io/badge/version-1.0.0-2563eb)
 ![Python](https://img.shields.io/badge/python-3.11%2B-3776ab)
 ![Data](https://img.shields.io/badge/data-PandaData-e11d48)
@@ -88,7 +89,7 @@
 | 面板 | **118,555 行 / 55 个主力连续序列 / 36 个品种入宇宙** |
 | 窗口 | 2016-01-04 ~ 2025-12-31 |
 | 字段 | `settlement` `pre_settlement` `open_interest` `volume` `amount` `dominant_id` |
-| 指纹 | `sha1 d613814cd3cf`（见 `开发产物/output/panel_manifest.json`） |
+| 指纹 | `sha1 d613814cd3cf`（见 [`results/panel_manifest.json`](results/panel_manifest.json)） |
 
 **新闻来源本期直接排除**，理由是硬的：`panda_data` 全部 reader 中不存在任何带发布时间的
 新闻/文本接口，只有两个报表类文本字段。凑不出"发布时间可追溯"就不做，不拿二手文本替代。
@@ -144,9 +145,11 @@ python scripts\refresh_production.py
 │   │   ├── run_pipeline.py       单进程全流程
 │   │   ├── fill_report.py        把结果自动写回报告 §4–§7
 │   │   ├── verify_deliverables.py 交付门禁（35 项）
+│   │   ├── check_report_consistency.py 报告数字 ↔ results/ 一致性（CI 用）
 │   │   ├── pd_client.py          平台入口封装 + 调用留痕
 │   │   └── selftest_engine.py    引擎自检（无平台依赖）
 │   └── references/data_guide.md  数据源、字段、接口限制、清洗口径、已知边界
+├── results/                     结果证据包：报告里每个数字的原始出处（约 240KB）
 └── 生产产物/
     ├── SKILL.md                  读取契约（主键、字段、禁止行为）
     ├── 数据库.parquet             最新交易日 36 个品种信号
@@ -168,8 +171,12 @@ python scripts\refresh_production.py
 - 生产 Parquet 字段合规、主键唯一、信号枚举合法、8 项质量检查全过、写入读回一致
 - 报告无 `【待填】` 残留
 
-当前状态：**35/35 通过**（在完整跑过一次 `run_pipeline.py` 的目录上；刚 clone 下来的仓库
-还没有 `output/`，此时门禁会如实报告"结果文件缺失"，属于预期）。
+当前状态：**35/35 通过**（在完整跑过一次 `run_pipeline.py` 的目录上）。
+刚 clone 下来的仓库没有 `开发产物/output/`，因此是 **18/35**——未通过的 17 项全部是
+"本机还没跑过"这一类，不是结论不一致；跑一次 `run_pipeline.py` 即可补齐。
+
+CI 里跑的是另外两个不依赖平台的关卡：`selftest_engine.py`（引擎 9 项自检）与
+`check_report_consistency.py`（报告数字 ↔ `results/` ↔ 预注册哈希 ↔ 生产 Parquet schema）。
 
 ## 边界与诚实披露
 

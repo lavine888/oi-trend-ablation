@@ -70,7 +70,10 @@ def _iso(d: str) -> str:
 def check_panel() -> None:
     man = OUT / "panel_manifest.json"
     if not man.exists():
+        # 保持检查项总数恒定，便于对照两次运行
         mark("面板清单存在", False, "尚未拉取平台数据")
+        mark("数据入口为平台接口直取", False, "无面板清单")
+        mark("面板覆盖样本内+样本外", False, "无面板清单")
         return
     m = json.loads(man.read_text(encoding="utf-8"))
     dmin, dmax = _iso(m.get("date_min", "")), _iso(m.get("date_max", ""))
@@ -106,7 +109,10 @@ def check_results() -> None:
         mark(f"结果文件 {name}", p.exists())
 
     bt = OUT / "bt_metrics.json"
-    if bt.exists():
+    if not bt.exists():
+        for name in ("OOS 三变体指标齐全", "成本敏感性与盈亏平衡已算", "IC/ICIR 已算", "分层收益已算"):
+            mark(name, False, "无 bt_metrics.json")
+    else:
         d = json.loads(bt.read_text(encoding="utf-8"))
         oos = d.get("windows", {}).get("OOS", {})
         has_all = all(k in oos for k in ("B0", "B1", "P1")) and "delta" in oos
@@ -116,7 +122,10 @@ def check_results() -> None:
         mark("分层收益已算", bool(d.get("layers")))
 
     vs = OUT / "validate_report.json"
-    if vs.exists():
+    if not vs.exists():
+        for name in ("未来函数检测通过", "置换检验已跑", "换月污染与剔除检验已跑"):
+            mark(name, False, "无 validate_report.json")
+    else:
         v = json.loads(vs.read_text(encoding="utf-8"))
         mark("未来函数检测通过", v.get("causal_check", {}).get("passed") is True,
              f"不一致 {v.get('causal_check', {}).get('mismatches')} 例")
@@ -131,6 +140,11 @@ def check_production() -> None:
     man = PROD / "build_manifest.json"
     if not pq.exists():
         mark("生产 Parquet 存在", False, "缺失")
+        mark("生产 Parquet 字段合规", False, "缺失")
+        mark("生产主键唯一", False, "缺失")
+        mark("生产信号枚举合法", False, "缺失")
+        mark("生产质量检查全通过", False, "缺失")
+        mark("生产写入读回一致", False, "缺失")
         return
     df = pd.read_parquet(pq)
     need = ["trade_date", "asset_type", "symbol", "factor_id", "factor_name",

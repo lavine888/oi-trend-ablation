@@ -31,8 +31,10 @@ sys.path.insert(0, str(HERE))
 ROOT = HERE.parent
 OUT = Path(os.getenv("ALPHA61_OUT") or (ROOT / "output"))
 
-IS_START, IS_END = "2016-01-01", "2021-12-31"
-OOS_START, OOS_END = "2022-01-01", "2025-12-31"
+import factor as ft  # 窗口参数单一来源，避免与 factor.py 漂移
+
+IS_START, IS_END = ft.IS_START, ft.IS_END
+OOS_START, OOS_END = ft.OOS_START, ft.OOS_END
 VARIANTS = {"B0": "w_b0", "B1": "w_b1", "P1": "w_p1"}
 COST_GRID = [0.0002, 0.0005, 0.0010]
 PRIMARY_COST = 0.0005

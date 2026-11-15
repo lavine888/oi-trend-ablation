@@ -1,0 +1,30 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # 只装回测与一致性检查需要的包；panda_data 是平台私有 SDK，CI 不装也不联网
+      - name: Install deps
+        run: python -m pip install --upgrade pip pandas numpy pyarrow
+
+      - name: Engine self-test (no platform needed)
+        run: python 开发产物/scripts/selftest_engine.py
+
+      - name: Report / evidence consistency
+        run: python 开发产物/scripts/check_report_consistency.py
+
+      - name: Compile all scripts
+        run: python -m compileall -q 开发产物/scripts

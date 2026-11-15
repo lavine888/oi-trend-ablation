@@ -1,0 +1,231 @@
+{
+  "universe": [
+    "AG_DOMINANT.SHF",
+    "AL_DOMINANT.SHF",
+    "AU_DOMINANT.SHF",
+    "A_DOMINANT.DCE",
+    "BU_DOMINANT.SHF",
+    "B_DOMINANT.DCE",
+    "CF_DOMINANT.CZC",
+    "CS_DOMINANT.DCE",
+    "CU_DOMINANT.SHF",
+    "C_DOMINANT.DCE",
+    "FG_DOMINANT.CZC",
+    "FU_DOMINANT.SHF",
+    "HC_DOMINANT.SHF",
+    "I_DOMINANT.DCE",
+    "JD_DOMINANT.DCE",
+    "JM_DOMINANT.DCE",
+    "J_DOMINANT.DCE",
+    "L_DOMINANT.DCE",
+    "MA_DOMINANT.CZC",
+    "M_DOMINANT.DCE",
+    "NI_DOMINANT.SHF",
+    "OI_DOMINANT.CZC",
+    "PB_DOMINANT.SHF",
+    "PP_DOMINANT.DCE",
+    "P_DOMINANT.DCE",
+    "RB_DOMINANT.SHF",
+    "RM_DOMINANT.CZC",
+    "RU_DOMINANT.SHF",
+    "SF_DOMINANT.CZC",
+    "SM_DOMINANT.CZC",
+    "SN_DOMINANT.SHF",
+    "SR_DOMINANT.CZC",
+    "TA_DOMINANT.CZC",
+    "V_DOMINANT.DCE",
+    "Y_DOMINANT.DCE",
+    "ZN_DOMINANT.SHF"
+  ],
+  "n_symbols": 36,
+  "causal_check": {
+    "samples": 40,
+    "mismatches": 0,
+    "detail": [],
+    "passed": true
+  },
+  "lookahead_control": {
+    "oos_sharpe_with_lookahead": -0.1375732655442921
+  },
+  "parameter_neighborhood": [
+    {
+      "lookback": 20,
+      "oi_lookback": 3,
+      "is_sharpe_B0": 0.7344300499882326,
+      "is_sharpe_B1": 0.5152092631707951,
+      "oos_sharpe_B0": 0.015380991637642399,
+      "oos_sharpe_B1": -0.21446230302184158,
+      "delta_oos": -0.22984329465948397
+    },
+    {
+      "lookback": 20,
+      "oi_lookback": 5,
+      "is_sharpe_B0": 0.7344300499882326,
+      "is_sharpe_B1": -0.0016499595791807484,
+      "oos_sharpe_B0": 0.015380991637642399,
+      "oos_sharpe_B1": -0.0166052043869245,
+      "delta_oos": -0.0319861960245669
+    },
+    {
+      "lookback": 20,
+      "oi_lookback": 10,
+      "is_sharpe_B0": 0.7344294724948366,
+      "is_sharpe_B1": 0.4704410635764302,
+      "oos_sharpe_B0": 0.015380991637642399,
+      "oos_sharpe_B1": 0.01594772556037405,
+      "delta_oos": 0.0005667339227316496
+    },
+    {
+      "lookback": 40,
+      "oi_lookback": 3,
+      "is_sharpe_B0": 0.43451970252363625,
+      "is_sharpe_B1": 0.3404896887049862,
+      "oos_sharpe_B0": 0.8300846331790936,
+      "oos_sharpe_B1": 0.4926247167852931,
+      "delta_oos": -0.3374599163938005
+    },
+    {
+      "lookback": 40,
+      "oi_lookback": 5,
+      "is_sharpe_B0": 0.43451970252363625,
+      "is_sharpe_B1": -0.2424464497594536,
+      "oos_sharpe_B0": 0.8300846331790936,
+      "oos_sharpe_B1": 0.6653879552057679,
+      "delta_oos": -0.16469667797332577
+    },
+    {
+      "lookback": 40,
+      "oi_lookback": 10,
+      "is_sharpe_B0": 0.43451942958018935,
+      "is_sharpe_B1": 0.1787310657750778,
+      "oos_sharpe_B0": 0.8300846331790936,
+      "oos_sharpe_B1": 0.6891849985470136,
+      "delta_oos": -0.14089963463208
+    },
+    {
+      "lookback": 60,
+      "oi_lookback": 3,
+      "is_sharpe_B0": 0.6266254795468159,
+      "is_sharpe_B1": 0.4885169798669827,
+      "oos_sharpe_B0": -0.004668262759763915,
+      "oos_sharpe_B1": -0.25121587365690834,
+      "delta_oos": -0.24654761089714441
+    },
+    {
+      "lookback": 60,
+      "oi_lookback": 5,
+      "is_sharpe_B0": 0.6266254795468159,
+      "is_sharpe_B1": -0.00766050614178492,
+      "oos_sharpe_B0": -0.004668262759763915,
+      "oos_sharpe_B1": -0.032794706735841714,
+      "delta_oos": -0.0281264439760778
+    },
+    {
+      "lookback": 60,
+      "oi_lookback": 10,
+      "is_sharpe_B0": 0.6266257566488762,
+      "is_sharpe_B1": 0.36218074451989885,
+      "oos_sharpe_B0": -0.004668262759763915,
+      "oos_sharpe_B1": -0.017353999800260547,
+      "delta_oos": -0.012685737040496633
+    },
+    {
+      "lookback": 120,
+      "oi_lookback": 3,
+      "is_sharpe_B0": 0.8399107643394457,
+      "is_sharpe_B1": 0.5969659370404441,
+      "oos_sharpe_B0": -0.5566609101614606,
+      "oos_sharpe_B1": -0.718377118091886,
+      "delta_oos": -0.1617162079304254
+    },
+    {
+      "lookback": 120,
+      "oi_lookback": 5,
+      "is_sharpe_B0": 0.8399107643394457,
+      "is_sharpe_B1": 0.048862205375107125,
+      "oos_sharpe_B0": -0.5566609101614606,
+      "oos_sharpe_B1": -0.4968247101682211,
+      "delta_oos": 0.05983619999323947
+    },
+    {
+      "lookback": 120,
+      "oi_lookback": 10,
+      "is_sharpe_B0": 0.8399109638228265,
+      "is_sharpe_B1": 0.43719541369457915,
+      "oos_sharpe_B0": -0.5566609101614606,
+      "oos_sharpe_B1": -0.4640046324260045,
+      "delta_oos": 0.0926562777354561
+    }
+  ],
+  "permutation": {
+    "draws": 500,
+    "observed_delta": -0.0281264439760778,
+    "null_mean": -0.3096441863332029,
+    "null_p95": 0.08882662182010904,
+    "p_value": 0.11,
+    "interpretation": "p<0.05 表示门的信息含量超出「随机少交易」的机械效应"
+  },
+  "vol_matched": {
+    "scale": 1.79138861541273,
+    "oos_sharpe_B1_raw": -0.032794706735841714,
+    "oos_sharpe_B1_volmatched": -0.032794706735841714,
+    "oos_sharpe_B0": -0.004668262759763915,
+    "oos_ann_return_B0": -0.0003369497608128972,
+    "oos_ann_return_B1_raw": -0.001326765279553906,
+    "oos_ann_return_B1_volmatched": -0.0023767522171177554,
+    "note": "Sharpe 对整体缩放不变，因此 P3 只回答「把 B1 放大到 B0 同波动后，收益与回撤是否仍更好」"
+  },
+  "roll_contamination": {
+    "available": true,
+    "roll_days": 1782,
+    "roll_window_share_of_days": 0.0995,
+    "rebalance_decisions_in_roll_window": 1745,
+    "rebalance_decisions_total": 17494,
+    "rebalance_share_in_roll_window": 0.0997,
+    "mean_abs_oi_chg5_in_window": 0.5246926143354339,
+    "mean_abs_oi_chg5_outside": 0.11194566781787568,
+    "note": "换月窗口内 |ΔOI_5d| 若显著偏高，说明持仓门的通过率受换月水平跳变影响，结论需按窗口内外分别复核"
+  },
+  "roll_excluded": {
+    "available": true,
+    "roll_window_days_dropped": 8702,
+    "delta_sharpe_oos_all": -0.0281264439760778,
+    "delta_sharpe_oos_roll_excluded": -0.17353629511196178,
+    "delta_magnitude_ratio": 6.169862612549189,
+    "verdict": "同号且幅度保留 ≥70%：差异不是换月造成的"
+  },
+  "risk": {
+    "oos_max_dd": -0.10067165741295836,
+    "oos_worst_date": "2025-09-04",
+    "oos_peak_date": "2022-07-15",
+    "oos_invested_share": 0.9753086419753086,
+    "avg_gross_exposure": 0.4760973936899864,
+    "top5_contributors": {
+      "RM_DOMINANT.CZC": 0.008004159038624606,
+      "C_DOMINANT.DCE": 0.008781010923789146,
+      "JD_DOMINANT.DCE": 0.010696616986815628,
+      "B_DOMINANT.DCE": 0.013716975729238967,
+      "JM_DOMINANT.DCE": 0.024918905235770228
+    },
+    "bottom5_contributors": {
+      "SN_DOMINANT.SHF": -0.01654766545908326,
+      "PB_DOMINANT.SHF": -0.008757901458986934,
+      "J_DOMINANT.DCE": -0.008051018521041413,
+      "Y_DOMINANT.DCE": -0.007846169512208465,
+      "MA_DOMINANT.CZC": -0.007821158993559185
+    },
+    "contrib_hhi": 0.00013233667168596682,
+    "note": "集中度用贡献绝对值 HHI；HHI 越高越依赖少数品种"
+  },
+  "extreme_case_counts": {
+    "strongest_confirmed_trend": 20,
+    "strongest_rejected_trend": 20,
+    "largest_oi_expansion_confirmed": 20,
+    "largest_oi_contraction_rejected": 20
+  },
+  "sandglass": {
+    "layer1_future_function": "PASS",
+    "layer2_overfit": "见 parameter_neighborhood：IS/OOS 衰减与 ΔOOS 一致性",
+    "layer3_oos": "见 bt_metrics.json 的 OOS 段；样本外仅评估一次，未参与任何选择"
+  }
+}

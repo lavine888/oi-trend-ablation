@@ -1,0 +1,49 @@
+{
+  "generated_at": "2026-11-12T23:47:49+08:00",
+  "entry_type": "panda_data_api",
+  "source": "panda_data.get_future_daily",
+  "provenance_note": "平台接口直取",
+  "rows": 118555,
+  "symbols_returned": 55,
+  "date_min": "20160104",
+  "date_max": "20251231",
+  "columns": [
+    "symbol",
+    "date",
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume",
+    "dominant_id",
+    "underlying_symbol",
+    "trading_code",
+    "exchange",
+    "limit_up",
+    "limit_down",
+    "open_interest",
+    "day_session_open",
+    "amount",
+    "settlement",
+    "pre_settlement"
+  ],
+  "sha1": "d613814cd3cf74245d2cc1b1b575bbb9c81b180c",
+  "calls": [
+    {
+      "chunk": [
+        "20160101",
+        "20201231"
+      ],
+      "mode": "batch",
+      "rows": 51919
+    },
+    {
+      "chunk": [
+        "20210101",
+        "20251231"
+      ],
+      "mode": "batch",
+      "rows": 66636
+    }
+  ]
+}

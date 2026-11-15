@@ -1,0 +1,582 @@
+{
+  "frozen_at": "2026-11-12T23:59:35+08:00",
+  "rules": {
+    "min_rows_full": 500,
+    "min_is_amount_median": 500000000.0,
+    "min_is_coverage": 0.8
+  },
+  "included": [
+    "AG_DOMINANT.SHF",
+    "AL_DOMINANT.SHF",
+    "AU_DOMINANT.SHF",
+    "A_DOMINANT.DCE",
+    "BU_DOMINANT.SHF",
+    "B_DOMINANT.DCE",
+    "CF_DOMINANT.CZC",
+    "CS_DOMINANT.DCE",
+    "CU_DOMINANT.SHF",
+    "C_DOMINANT.DCE",
+    "FG_DOMINANT.CZC",
+    "FU_DOMINANT.SHF",
+    "HC_DOMINANT.SHF",
+    "I_DOMINANT.DCE",
+    "JD_DOMINANT.DCE",
+    "JM_DOMINANT.DCE",
+    "J_DOMINANT.DCE",
+    "L_DOMINANT.DCE",
+    "MA_DOMINANT.CZC",
+    "M_DOMINANT.DCE",
+    "NI_DOMINANT.SHF",
+    "OI_DOMINANT.CZC",
+    "PB_DOMINANT.SHF",
+    "PP_DOMINANT.DCE",
+    "P_DOMINANT.DCE",
+    "RB_DOMINANT.SHF",
+    "RM_DOMINANT.CZC",
+    "RU_DOMINANT.SHF",
+    "SF_DOMINANT.CZC",
+    "SM_DOMINANT.CZC",
+    "SN_DOMINANT.SHF",
+    "SR_DOMINANT.CZC",
+    "TA_DOMINANT.CZC",
+    "V_DOMINANT.DCE",
+    "Y_DOMINANT.DCE",
+    "ZN_DOMINANT.SHF"
+  ],
+  "audit": [
+    {
+      "symbol": "AG_DOMINANT.SHF",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 30613358340.0,
+      "reasons": []
+    },
+    {
+      "symbol": "AL_DOMINANT.SHF",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 11903008500.0,
+      "reasons": []
+    },
+    {
+      "symbol": "AP_DOMINANT.CZC",
+      "included": false,
+      "valid_rows": 1948,
+      "valid_rows_is": 979,
+      "is_coverage": 0.6701,
+      "is_amount_median": 21039827220.0,
+      "reasons": [
+        "is_coverage<0.8(0.670)"
+      ]
+    },
+    {
+      "symbol": "AU_DOMINANT.SHF",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 45797478060.0,
+      "reasons": []
+    },
+    {
+      "symbol": "A_DOMINANT.DCE",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 6621937650.0,
+      "reasons": []
+    },
+    {
+      "symbol": "BC_DOMINANT.INE",
+      "included": false,
+      "valid_rows": 1243,
+      "valid_rows_is": 274,
+      "is_coverage": 0.1875,
+      "is_amount_median": 3725140400.0,
+      "reasons": [
+        "is_coverage<0.8(0.188)"
+      ]
+    },
+    {
+      "symbol": "BU_DOMINANT.SHF",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 17581422480.0,
+      "reasons": []
+    },
+    {
+      "symbol": "B_DOMINANT.DCE",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 1280449190.0,
+      "reasons": []
+    },
+    {
+      "symbol": "CF_DOMINANT.CZC",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 21223616150.0,
+      "reasons": []
+    },
+    {
+      "symbol": "CJ_DOMINANT.CZC",
+      "included": false,
+      "valid_rows": 1621,
+      "valid_rows_is": 652,
+      "is_coverage": 0.4463,
+      "is_amount_median": 2326252800.0,
+      "reasons": [
+        "is_coverage<0.8(0.446)"
+      ]
+    },
+    {
+      "symbol": "CS_DOMINANT.DCE",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 3898007940.0,
+      "reasons": []
+    },
+    {
+      "symbol": "CU_DOMINANT.SHF",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 44265936300.0,
+      "reasons": []
+    },
+    {
+      "symbol": "CY_DOMINANT.CZC",
+      "included": false,
+      "valid_rows": 2033,
+      "valid_rows_is": 1064,
+      "is_coverage": 0.7283,
+      "is_amount_median": 804596325.0,
+      "reasons": [
+        "is_coverage<0.8(0.728)"
+      ]
+    },
+    {
+      "symbol": "C_DOMINANT.DCE",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 10015459600.0,
+      "reasons": []
+    },
+    {
+      "symbol": "EG_DOMINANT.DCE",
+      "included": false,
+      "valid_rows": 1714,
+      "valid_rows_is": 745,
+      "is_coverage": 0.5099,
+      "is_amount_median": 15418119680.0,
+      "reasons": [
+        "is_coverage<0.8(0.510)"
+      ]
+    },
+    {
+      "symbol": "FB_DOMINANT.DCE",
+      "included": false,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 2952400.0,
+      "reasons": [
+        "is_amount_median<5e+08(2.952e+06)"
+      ]
+    },
+    {
+      "symbol": "FG_DOMINANT.CZC",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 7606022300.0,
+      "reasons": []
+    },
+    {
+      "symbol": "FU_DOMINANT.SHF",
+      "included": true,
+      "valid_rows": 2419,
+      "valid_rows_is": 1450,
+      "is_coverage": 0.9925,
+      "is_amount_median": 12307481380.0,
+      "reasons": []
+    },
+    {
+      "symbol": "HC_DOMINANT.SHF",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 18079052900.0,
+      "reasons": []
+    },
+    {
+      "symbol": "I_DOMINANT.DCE",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 78771413100.0,
+      "reasons": []
+    },
+    {
+      "symbol": "JD_DOMINANT.DCE",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 7022804380.0,
+      "reasons": []
+    },
+    {
+      "symbol": "JM_DOMINANT.DCE",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 14624418180.0,
+      "reasons": []
+    },
+    {
+      "symbol": "J_DOMINANT.DCE",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 58563747200.0,
+      "reasons": []
+    },
+    {
+      "symbol": "LH_DOMINANT.DCE",
+      "included": false,
+      "valid_rows": 1208,
+      "valid_rows_is": 239,
+      "is_coverage": 0.1636,
+      "is_amount_median": 4226402000.0,
+      "reasons": [
+        "is_coverage<0.8(0.164)"
+      ]
+    },
+    {
+      "symbol": "LU_DOMINANT.INE",
+      "included": false,
+      "valid_rows": 1343,
+      "valid_rows_is": 374,
+      "is_coverage": 0.256,
+      "is_amount_median": 1381535360.0,
+      "reasons": [
+        "is_coverage<0.8(0.256)"
+      ]
+    },
+    {
+      "symbol": "L_DOMINANT.DCE",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 16215196000.0,
+      "reasons": []
+    },
+    {
+      "symbol": "MA_DOMINANT.CZC",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 28693979550.0,
+      "reasons": []
+    },
+    {
+      "symbol": "M_DOMINANT.DCE",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 33790175670.0,
+      "reasons": []
+    },
+    {
+      "symbol": "NI_DOMINANT.SHF",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 58873337640.0,
+      "reasons": []
+    },
+    {
+      "symbol": "NR_DOMINANT.INE",
+      "included": false,
+      "valid_rows": 1551,
+      "valid_rows_is": 582,
+      "is_coverage": 0.3984,
+      "is_amount_median": 1297980600.0,
+      "reasons": [
+        "is_coverage<0.8(0.398)"
+      ]
+    },
+    {
+      "symbol": "OI_DOMINANT.CZC",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 13529230900.0,
+      "reasons": []
+    },
+    {
+      "symbol": "PB_DOMINANT.SHF",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 3824548200.0,
+      "reasons": []
+    },
+    {
+      "symbol": "PF_DOMINANT.CZC",
+      "included": false,
+      "valid_rows": 1271,
+      "valid_rows_is": 302,
+      "is_coverage": 0.2067,
+      "is_amount_median": 5206502940.0,
+      "reasons": [
+        "is_coverage<0.8(0.207)"
+      ]
+    },
+    {
+      "symbol": "PG_DOMINANT.DCE",
+      "included": false,
+      "valid_rows": 1399,
+      "valid_rows_is": 430,
+      "is_coverage": 0.2943,
+      "is_amount_median": 8631494030.0,
+      "reasons": [
+        "is_coverage<0.8(0.294)"
+      ]
+    },
+    {
+      "symbol": "PK_DOMINANT.CZC",
+      "included": false,
+      "valid_rows": 1192,
+      "valid_rows_is": 223,
+      "is_coverage": 0.1526,
+      "is_amount_median": 2110579650.0,
+      "reasons": [
+        "is_coverage<0.8(0.153)"
+      ]
+    },
+    {
+      "symbol": "PP_DOMINANT.DCE",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 20779868120.0,
+      "reasons": []
+    },
+    {
+      "symbol": "P_DOMINANT.DCE",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 36696901760.0,
+      "reasons": []
+    },
+    {
+      "symbol": "RB_DOMINANT.SHF",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 119123728020.0,
+      "reasons": []
+    },
+    {
+      "symbol": "RM_DOMINANT.CZC",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 17429378400.0,
+      "reasons": []
+    },
+    {
+      "symbol": "RR_DOMINANT.DCE",
+      "included": false,
+      "valid_rows": 1547,
+      "valid_rows_is": 578,
+      "is_coverage": 0.3956,
+      "is_amount_median": 250672890.0,
+      "reasons": [
+        "is_amount_median<5e+08(2.507e+08)",
+        "is_coverage<0.8(0.396)"
+      ]
+    },
+    {
+      "symbol": "RS_DOMINANT.CZC",
+      "included": false,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 321900.0,
+      "reasons": [
+        "is_amount_median<5e+08(3.219e+05)"
+      ]
+    },
+    {
+      "symbol": "RU_DOMINANT.SHF",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 56223405100.0,
+      "reasons": []
+    },
+    {
+      "symbol": "SA_DOMINANT.CZC",
+      "included": false,
+      "valid_rows": 1473,
+      "valid_rows_is": 504,
+      "is_coverage": 0.345,
+      "is_amount_median": 14250885030.0,
+      "reasons": [
+        "is_coverage<0.8(0.345)"
+      ]
+    },
+    {
+      "symbol": "SC_DOMINANT.INE",
+      "included": false,
+      "valid_rows": 1888,
+      "valid_rows_is": 919,
+      "is_coverage": 0.629,
+      "is_amount_median": 59606804600.0,
+      "reasons": [
+        "is_coverage<0.8(0.629)"
+      ]
+    },
+    {
+      "symbol": "SF_DOMINANT.CZC",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 2154188460.0,
+      "reasons": []
+    },
+    {
+      "symbol": "SM_DOMINANT.CZC",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 3925520400.0,
+      "reasons": []
+    },
+    {
+      "symbol": "SN_DOMINANT.SHF",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 2932800160.0,
+      "reasons": []
+    },
+    {
+      "symbol": "SP_DOMINANT.SHF",
+      "included": false,
+      "valid_rows": 1723,
+      "valid_rows_is": 754,
+      "is_coverage": 0.5161,
+      "is_amount_median": 9918128540.0,
+      "reasons": [
+        "is_coverage<0.8(0.516)"
+      ]
+    },
+    {
+      "symbol": "SR_DOMINANT.CZC",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 24809783360.0,
+      "reasons": []
+    },
+    {
+      "symbol": "SS_DOMINANT.SHF",
+      "included": false,
+      "valid_rows": 1520,
+      "valid_rows_is": 551,
+      "is_coverage": 0.3771,
+      "is_amount_median": 3185035000.0,
+      "reasons": [
+        "is_coverage<0.8(0.377)"
+      ]
+    },
+    {
+      "symbol": "TA_DOMINANT.CZC",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 27589649500.0,
+      "reasons": []
+    },
+    {
+      "symbol": "UR_DOMINANT.CZC",
+      "included": false,
+      "valid_rows": 1552,
+      "valid_rows_is": 583,
+      "is_coverage": 0.399,
+      "is_amount_median": 3065386640.0,
+      "reasons": [
+        "is_coverage<0.8(0.399)"
+      ]
+    },
+    {
+      "symbol": "V_DOMINANT.DCE",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 7449054200.0,
+      "reasons": []
+    },
+    {
+      "symbol": "Y_DOMINANT.DCE",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 28539815300.0,
+      "reasons": []
+    },
+    {
+      "symbol": "ZN_DOMINANT.SHF",
+      "included": true,
+      "valid_rows": 2430,
+      "valid_rows_is": 1461,
+      "is_coverage": 1.0,
+      "is_amount_median": 30441286000.0,
+      "reasons": []
+    }
+  ]
+}
