@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """合成数据干跑：在不接触平台的情况下验证 factor/backtest/validate 全链路。
 
 ⚠️ 用途仅限**代码正确性与统计功效自检**。合成数据里人为植入了「持仓确认有效」的

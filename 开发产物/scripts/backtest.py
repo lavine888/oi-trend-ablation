@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """Alpha-61 回测脚本：冻结基线 B0 vs 处理组 B1(+持仓门) vs 安慰剂 P1(+成交门)。
 
 运行

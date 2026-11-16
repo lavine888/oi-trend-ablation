@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """Alpha-61 验证脚本：未来函数、参数邻域、置换检验、波动匹配、极值案例、风险识别。
 
 运行

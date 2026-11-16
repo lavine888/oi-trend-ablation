@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """PandaAI data (panda_data SDK) 统一入口封装。
 
 用途

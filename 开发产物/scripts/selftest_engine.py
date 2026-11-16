@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """引擎自检：用可手算的合成数据验证回测引擎没有未来函数、成本与权重口径正确。
 
 运行：python scripts/selftest_engine.py

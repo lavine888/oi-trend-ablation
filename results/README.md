@@ -15,6 +15,7 @@
 | `extreme_cases.csv` | 4 类信号极值案例各 20 条（品种/日期/字段值/事后 5 日） | §5 |
 | `permutation.json` | 500 次随机门的零分布、观测 Δ、p 值 | §6 |
 | `validate_report.json` | 未来函数抽检、参数邻域、波动匹配、换月污染与剔除检验、回撤与集中度 | §6 |
+| `replication_cffex.json` | 外部复现：CFFEX 股指/国债 5 品种的 IS/OOS、三个成本档、换手 | §7B |
 
 ## 没带的东西，以及为什么
 

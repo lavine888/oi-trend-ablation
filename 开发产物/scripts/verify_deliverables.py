@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """交付门禁：逐项核对 Alpha-61 是否达到「可交付」状态，并打印证据表。
 
 运行

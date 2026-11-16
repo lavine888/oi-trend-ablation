@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """一次性登录脚本：把 panda_data 加密凭据写到**工作区内**的 `.secrets/user.json`。
 
 为什么凭据要放在工作区

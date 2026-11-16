@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """把 output/*.json 的真实结果渲染成报告 §4–§7 的表格并写回 研究报告.md。
 
 运行

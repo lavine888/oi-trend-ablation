@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """单进程全流程：登录 -> 拉数建面板 -> 回测 -> 验证 -> 落生产产物。
 
 为什么要有这个脚本

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """Alpha-61 因子计算主脚本：持仓确认趋势（OI-Confirmed Trend）。
 
 运行

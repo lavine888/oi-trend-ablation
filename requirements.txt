@@ -1,3 +1,4 @@
+# 实测通过的版本（2026-11）：panda_data 0.0.12 / pandas 3.0.3 / numpy 1.26.4 / pyarrow 25.0.0
 # 运行时依赖：跑 factor / backtest / validate / production 所需
 panda_data>=0.0.12
 pandas>=2.0

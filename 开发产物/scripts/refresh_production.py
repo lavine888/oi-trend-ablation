@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """生产产物刷新：把 `数据库.parquet` 更新到最新交易日。
 
 为什么不直接改 study 面板

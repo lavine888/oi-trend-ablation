@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "负结果同样值得引用：请连同预注册（00_预注册_研究设计与口径.md）一起引用。"
+type: software
+title: "OI Trend Ablation: does open-interest change confirm futures trend?"
+abstract: >-
+  一个预注册的单一来源消融实验：在纯价格趋势基线上只增加「持仓量变化」一个数据来源，
+  检验样本外扣费后是否变好。商品期货（36 品种，2016–2025）结论为负（OOS ΔSharpe −0.028，
+  盈亏平衡成本 4.4bp），并在 CFFEX 股指/国债期货（5 品种）上复现（Δ −0.165）。
+authors:
+  - family-names: Xie
+    given-names: Lavine
+    alias: lavine888
+    website: https://github.com/lavine888
+repository-code: https://github.com/lavine888/oi-trend-ablation
+url: https://github.com/lavine888/oi-trend-ablation
+license: GPL-3.0-or-later
+version: 1.0.0
+date-released: "2026-11-16"
+keywords:
+  - quantitative finance
+  - futures
+  - CTA
+  - open interest
+  - ablation study
+  - negative results
+  - reproducible research

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """Alpha-61 生产产物生成器：把最新有效交易日的因子结果落成 `数据库.parquet`。
 
 对应《Alpha 因子开发与生产规则 V2》第 7–10 节：交易 agent 不重复拉数、不重算因子，

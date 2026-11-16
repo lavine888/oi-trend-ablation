@@ -8,13 +8,14 @@
 
 一个预注册、可一键复现的**负结果**：**不能。**
 
-**简体中文**
+**简体中文** · [English](README.en.md)
 
 [![CI](https://github.com/lavine888/oi-trend-ablation/actions/workflows/ci.yml/badge.svg)](https://github.com/lavine888/oi-trend-ablation/actions/workflows/ci.yml)
 ![Version](https://img.shields.io/badge/version-1.0.0-2563eb)
 ![Python](https://img.shields.io/badge/python-3.11%2B-3776ab)
 ![Data](https://img.shields.io/badge/data-PandaData-e11d48)
 ![Result](https://img.shields.io/badge/result-negative-dc2626)
+![Replication](https://img.shields.io/badge/replication-CFFEX%20%CE%94%E2%88%920.165-dc2626)
 ![Gate](https://img.shields.io/badge/delivery%20gate-35%2F35-15803d)
 [![License](https://img.shields.io/badge/license-GPL--3.0-334155)](LICENSE)
 
@@ -41,6 +42,10 @@
 > 记账口径：波动与回撤确实变好了，但那是**暴露减半**的机械结果；同样的效果直接把 B0 乘
 > 0.56 倍杠杆就能拿到，还不用多付那一倍的换手成本。
 
+**换到另一个资产类别还是负的。** 用完全相同的参数搬去 CFFEX 的股指与国债期货（IC/IF/IH/TF/T，
+2016–2025，同样的 IS/OOS 切分与 5bp 成本）：ΔSharpe = **−0.165**，2bp/5bp/10bp 三个成本档全为负，
+换手同样从 11.2 翻到 25.0。
+
 ## 为什么把负结果单独开源
 
 负结果常常被埋掉，于是每个人都在同一个坑里重复交学费。这个仓库把整个过程摊开：
@@ -50,6 +55,22 @@
 - **四条独立判据同向**：IC、条件收益、置换检验、参数邻域，全部指向"这门没有筛选能力"。
 - **把边界量化**：换月污染有多大、成本多高就失效、多少格参数邻域为正。
 - **一条命令复现**：从平台取数到报告填表到门禁检查，全部脚本化。
+
+## 外部复现：换到股指 / 国债期货
+
+主结果之后补做（**不是预注册内容**），目的只有一个：排除"负结果只是商品期货的样本特性"。
+
+| 项 | 值 |
+|---|---|
+| 品种池 | IC / IF / IH / TF / T（IM、TL 在 IS 期无数据，TS 覆盖率 56%，按预注册规则剔除） |
+| IS Sharpe | B0 +0.285 ／ B1 +0.207 |
+| OOS Sharpe | B0 −0.139 ／ B1 −0.304 ／ P1 −0.477 |
+| **Δ(B1−B0) OOS** | **−0.165** |
+| 成本敏感性 | 2bp −0.089 ／ 5bp −0.165 ／ 10bp −0.291 |
+| OOS 换手 | 11.2 → 25.0（与商品期货一样翻倍） |
+
+商品期货那边 2bp 下还勉强微正（+0.113），股指/国债这边三个成本档全为负——机制相同、结论更硬。
+原始结果见 [`results/replication_cffex.json`](results/replication_cffex.json)。
 
 ## 四条判据
 
@@ -146,6 +167,7 @@ python scripts\refresh_production.py
 │   │   ├── fill_report.py        把结果自动写回报告 §4–§7
 │   │   ├── verify_deliverables.py 交付门禁（35 项）
 │   │   ├── check_report_consistency.py 报告数字 ↔ results/ 一致性（CI 用）
+│   │   ├── replicate_cffex.py    外部复现：同一参数搬到股指/国债期货
 │   │   ├── pd_client.py          平台入口封装 + 调用留痕
 │   │   └── selftest_engine.py    引擎自检（无平台依赖）
 │   └── references/data_guide.md  数据源、字段、接口限制、清洗口径、已知边界
@@ -187,7 +209,9 @@ CI 里跑的是另外两个不依赖平台的关卡：`selftest_engine.py`（引
    统计功效有限：本报告的负结论是"没有证据表明有增量"，而不是"已证明增量为负"。
 4. **OOS 事实上被评估了 4 次**（格式/工程/数据缺陷修正所致），逐条记录在报告 §10，
    并说明为什么这不构成"看着结果调参"。
-5. **平台口径**：本仓库的数据入口是 PandaAI/pandata 数据服务；若你的"QuantStudio"指另一套
+5. **复现的样本也偏小**：CFFEX 端只有 5 个品种，横截面很窄；且其真实手续费远低于 5bp，
+   用的是保守成本——方向可信，绝对值不可与商品期货直接比。
+6. **平台口径**：本仓库的数据入口是 PandaAI/pandata 数据服务；若你的"QuantStudio"指另一套
    系统，需要换入口重做（见报告 §11）。
 
 ## 免责声明

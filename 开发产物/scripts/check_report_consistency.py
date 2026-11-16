@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """文档/证据一致性检查：确认报告里的关键数字与 `results/` 里的原始结果一致。
 
 这个脚本是给 CI 用的，不联网、不需要平台凭据，只读 `results/` 与仓库文件。
@@ -35,8 +36,13 @@ def check(name: str, ok: bool, detail: str = "") -> None:
         FAILS.append(name)
 
 
+def norm(s: str) -> str:
+    """统一减号：报告里可能用 U+2212，脚本输出用 ASCII。"""
+    return s.replace("\u2212", "-")
+
+
 def main() -> int:
-    report = REPORT.read_text(encoding="utf-8")
+    report = norm(REPORT.read_text(encoding="utf-8"))
     bt = json.loads((RESULTS / "bt_metrics.json").read_text(encoding="utf-8"))
 
     delta = bt["windows"]["OOS"]["delta"]["sharpe_B1_minus_B0"]
@@ -49,6 +55,16 @@ def main() -> int:
     panel = json.loads((RESULTS / "panel_manifest.json").read_text(encoding="utf-8"))
     check("面板指纹出现在报告", str(panel["sha1"])[:12] in report, panel["sha1"][:12])
     check("面板行数与报告一致", "118,555" in report or "118555" in report, str(panel["rows"]))
+
+    repl_path = RESULTS / "replication_cffex.json"
+    if repl_path.exists():
+        repl = json.loads(repl_path.read_text(encoding="utf-8"))
+        rd = repl["costs"]["5bp"]["delta_b1_minus_b0"]
+        check("外部复现 ΔSharpe 为负", rd < 0, f"CFFEX Δ={rd:.3f}")
+        check("报告引用复现数值", f"{rd:.3f}" in report, "报告中应出现该数值")
+        check("复现品种数", len(repl["universe"]) >= 4, str(len(repl["universe"])))
+    else:
+        check("外部复现结果存在", False, "缺 results/replication_cffex.json")
 
     frozen = json.loads((ROOT / "00_预注册_冻结记录.json").read_text(encoding="utf-8"))
     spec = ROOT / "00_预注册_研究设计与口径.md"
