@@ -252,8 +252,9 @@ python scripts\refresh_production.py
 - 报告无 `【待填】` 残留
 
 当前状态：**35/35 通过**（在完整跑过一次 `run_pipeline.py` 的目录上）。
-刚 clone 下来的仓库没有 `开发产物/output/`，因此是 **18/35**——未通过的 17 项全部是
-"本机还没跑过"这一类，不是结论不一致；跑一次 `run_pipeline.py` 即可补齐。
+刚 clone 下来的仓库没有 `开发产物/output/`，因此是 **19/35**——未通过的 16 项全部是
+"本机还没跑过"这一类（面板、逐次调用留痕、回测产物），不是结论不一致；跑一次
+`run_pipeline.py` 即可补齐。
 
 CI 里跑的是另外两个不依赖平台的关卡：`selftest_engine.py`（引擎 9 项自检）与
 `check_report_consistency.py`（报告数字 ↔ `results/` ↔ 预注册哈希 ↔ 生产 Parquet schema）。
