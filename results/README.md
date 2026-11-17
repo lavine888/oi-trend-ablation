@@ -16,7 +16,7 @@
 | `permutation.json` | 500 次随机门的零分布、观测 Δ、p 值 | §6 |
 | `validate_report.json` | 未来函数抽检、参数邻域、波动匹配、换月污染与剔除检验、回撤与集中度 | §6 |
 | `replication_cffex.json` | 外部复现：CFFEX 股指/国债 5 品种的 IS/OOS、三个成本档、换手 | §7B |
-| `replication_2010_2015.json` | 时间维度复现：2010–2015 商品期货 16 品种 | §7C |
+| `replication_2010_2015.json` | 时间维度复现：2010–2015 商品期货 16 品种 + 三组切分 + 逐年 Δ | §7C |
 | `oi_variants.json` | 持仓数据的 5 种替代构造（含"反向门"与"仅持仓变化"） | §7D |
 | `cost_real_fees.json` | 逐品种费率三档情景与统一 5bp 的对照 | §7E |
 

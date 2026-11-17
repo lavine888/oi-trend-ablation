@@ -73,6 +73,14 @@ def main() -> int:
         d2 = r2["costs"]["5bp"]["delta_b1_minus_b0"]
         check("2010–2015 复现为负", d2 < 0, f"Δ={d2:.3f}")
         check("报告引用 2010–2015 复现数值", f"{d2:.3f}" in report, "报告中应出现该数值")
+        sp = r2.get("splits", {})
+        if sp:
+            worst = max(v["5bp"]["delta_b1_minus_b0"] for v in sp.values())
+            check("三组切分全部为负", worst < 0, f"最不负 {worst:+.3f}")
+            yr = sp.get("S0_原冻结", {}).get("yearly_delta", {})
+            if yr:
+                check("逐年全为负", max(yr.values()) < 0,
+                      " / ".join(f"{y}:{v:+.2f}" for y, v in yr.items()))
     else:
         check("2010–2015 复现结果存在", False, "缺 results/replication_2010_2015.json")
 

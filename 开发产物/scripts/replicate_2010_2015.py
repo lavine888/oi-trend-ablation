@@ -64,12 +64,12 @@ def fetch(symbols):
             .sort_values(["symbol", "date"]).reset_index(drop=True))
 
 
-def select_universe_is(feat: pd.DataFrame):
-    """复现窗口专用：只用 2010–2012 判定宇宙，规则与主研究一致。"""
-    dates_is = feat.loc[(feat.date >= R_IS_START) & (feat.date <= R_IS_END), "date"].nunique()
+def select_universe_is(feat: pd.DataFrame, is_start: str, is_end: str):
+    """复现窗口专用：只用给定的 IS 段判定宇宙，规则与主研究一致。"""
+    dates_is = feat.loc[(feat.date >= is_start) & (feat.date <= is_end), "date"].nunique()
     keep, audit = [], []
     for sym, g in feat.groupby("symbol", sort=True):
-        gi = g[(g.date >= R_IS_START) & (g.date <= R_IS_END)]
+        gi = g[(g.date >= is_start) & (g.date <= is_end)]
         valid = int(g["r"].notna().sum())
         cov = (gi["date"].nunique() / dates_is) if dates_is else 0.0
         amt = float(gi.loc[gi["amt"].notna(), "amt"].median()) if gi["amt"].notna().any() else 0.0
@@ -87,6 +87,51 @@ def select_universe_is(feat: pd.DataFrame):
     return keep, audit
 
 
+def run_split(feat: pd.DataFrame, is_start: str, is_end: str,
+              oos_start: str, oos_end: str) -> dict:
+    """按给定切分重跑一遍：IS 定宇宙 → 出信号 → 扣费回测。"""
+    universe, _ = select_universe_is(feat, is_start, is_end)
+    sig = ft.build_signals(feat, universe)
+    sig = sig[(sig["date"] >= is_start) & (sig["date"] <= oos_end)].copy()
+    sig["rebalance"] = False
+    for sym in universe:
+        idx = sig.index[sig["symbol"] == sym]
+        if len(idx):
+            sig.loc[idx[:: ft.REBALANCE_DAYS], "rebalance"] = True
+    mats = bt.to_matrices(sig)
+
+    blk = {"universe_size": len(universe), "rows": int(len(sig))}
+    for label, c in COSTS.items():
+        runs = {k: bt.run_variant(mats, k, c) for k in ("B0", "B1", "P1")}
+        sub = {}
+        for k, v in runs.items():
+            net = v["net"]
+            sub[k] = {
+                "is_sharpe": bt.ann_sharpe(net.loc[is_start:is_end]),
+                "oos_sharpe": bt.ann_sharpe(net.loc[oos_start:oos_end]),
+                "oos_ann_return": float(net.loc[oos_start:oos_end].mean() * 252),
+                "oos_max_dd": bt.max_drawdown(net.loc[oos_start:oos_end]),
+                "oos_turnover": float(v["turnover"].loc[oos_start:oos_end].mean() * 252),
+            }
+        sub["delta_b1_minus_b0"] = sub["B1"]["oos_sharpe"] - sub["B0"]["oos_sharpe"]
+        blk[label] = sub
+
+    # 逐年 Δ（用 5bp 档）
+    net0 = runs_net(mats, "B0", COSTS["5bp"])
+    net1 = runs_net(mats, "B1", COSTS["5bp"])
+    years = sorted({d[:4] for d in net0.loc[oos_start:oos_end].index})
+    blk["yearly_delta"] = {
+        y: (bt.ann_sharpe(net1.loc[f"{y}-01-01":f"{y}-12-31"])
+            - bt.ann_sharpe(net0.loc[f"{y}-01-01":f"{y}-12-31"]))
+        for y in years
+    }
+    return blk
+
+
+def runs_net(mats, key: str, cost: float) -> pd.Series:
+    return bt.run_variant(mats, key, cost)["net"]
+
+
 def main() -> int:
     pd_client.bootstrap()
     symbols = [ft.symbol_of(v, e) for v, e in ft.CANDIDATES]
@@ -95,52 +140,45 @@ def main() -> int:
     print(f"合计 {len(raw)} 行，{raw['date'].min()} ~ {raw['date'].max()}")
 
     feat = ft.build_features(raw)
-    universe, audit = select_universe_is(feat)
-    print(f"通过 IS(2010–2012) 规则的品种：{len(universe)}")
 
-    sig = ft.build_signals(feat, universe)
-    sig = sig[(sig["date"] >= R_IS_START) & (sig["date"] <= R_OOS_END)].copy()
-    sig["rebalance"] = False
-    for sym in universe:
-        idx = sig.index[sig["symbol"] == sym]
-        if len(idx):
-            sig.loc[idx[:: ft.REBALANCE_DAYS], "rebalance"] = True
+    splits = {
+        "S0_原冻结": (R_IS_START, R_IS_END, R_OOS_START, R_OOS_END),
+        "S1_更早切": ("2010-01-01", "2011-12-31", "2012-01-01", "2015-12-31"),
+        "S2_更晚切": ("2010-01-01", "2013-12-31", "2014-01-01", "2015-12-31"),
+    }
+    out_splits = {name: run_split(feat, *w) for name, w in splits.items()}
 
-    mats = bt.to_matrices(sig)
+    s0 = out_splits["S0_原冻结"]
     result = {
         "generated_at": datetime.now(CST).isoformat(timespec="seconds"),
         "spec": "00_预注册_复现_2010-2015.md",
-        "universe": universe,
-        "rows": int(len(sig)),
+        "addendum": "00_预注册_复现_2010-2015_补充说明.md",
+        "universe": None,   # 由 run_split 内部决定，见 splits
+        "rows": s0["rows"],
         "is_window": [R_IS_START, R_IS_END],
         "oos_window": [R_OOS_START, R_OOS_END],
-        "costs": {},
+        "costs": {label: s0[label] for label in COSTS},
+        "splits": out_splits,
     }
-    for label, c in COSTS.items():
-        runs = {k: bt.run_variant(mats, k, c) for k in ("B0", "B1", "P1")}
-        blk = {}
-        for k, v in runs.items():
-            net = v["net"]
-            blk[k] = {
-                "is_sharpe": bt.ann_sharpe(net.loc[R_IS_START:R_IS_END]),
-                "oos_sharpe": bt.ann_sharpe(net.loc[R_OOS_START:R_OOS_END]),
-                "oos_ann_return": float(net.loc[R_OOS_START:R_OOS_END].mean() * 252),
-                "oos_ann_vol": float(net.loc[R_OOS_START:R_OOS_END].std() * np.sqrt(252)),
-                "oos_max_dd": bt.max_drawdown(net.loc[R_OOS_START:R_OOS_END]),
-                "oos_turnover": float(v["turnover"].loc[R_OOS_START:R_OOS_END].mean() * 252),
-            }
-        blk["delta_b1_minus_b0"] = blk["B1"]["oos_sharpe"] - blk["B0"]["oos_sharpe"]
-        blk["delta_p1_minus_b0"] = blk["P1"]["oos_sharpe"] - blk["B0"]["oos_sharpe"]
-        result["costs"][label] = blk
+
+    # 兼容既有检查：从 S0 反推品种数
+    result["universe_size"] = s0["universe_size"]
 
     p = result["costs"]["5bp"]
-    print("\n2010–2015 复现（扣费 5bp）")
+    print("\n2010–2015 复现（主口径 S0，扣费 5bp）")
+    print(f"  品种 {s0['universe_size']} 个")
     print(f"  IS  Sharpe: B0 {p['B0']['is_sharpe']:+.3f}  B1 {p['B1']['is_sharpe']:+.3f}")
     print(f"  OOS Sharpe: B0 {p['B0']['oos_sharpe']:+.3f}  B1 {p['B1']['oos_sharpe']:+.3f}  "
           f"P1 {p['P1']['oos_sharpe']:+.3f}")
-    print(f"  Δ(B1−B0) OOS: {p['delta_b1_minus_b0']:+.3f}   Δ(P1−B0): {p['delta_p1_minus_b0']:+.3f}")
-    for k, v in result["costs"].items():
-        print(f"  {k}: Δ={v['delta_b1_minus_b0']:+.3f}")
+    print(f"  Δ(B1−B0) OOS: {p['delta_b1_minus_b0']:+.3f}")
+
+    print("\n切分敏感性（5bp 的 ΔSharpe）")
+    for name, blk in out_splits.items():
+        print(f"  {name:<12} 品种 {blk['universe_size']:>2d}  Δ={blk['5bp']['delta_b1_minus_b0']:+.3f}")
+
+    print("\nS0 逐年 ΔSharpe")
+    for y, d in s0["yearly_delta"].items():
+        print(f"  {y}: {d:+.3f}")
 
     RESULTS.mkdir(exist_ok=True)
     (RESULTS / "replication_2010_2015.json").write_text(
