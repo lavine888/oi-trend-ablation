@@ -8,6 +8,10 @@ Does open-interest change confirm a futures trend?
 
 A pre-registered, one-command-reproducible **negative result**: **no.**
 
+> Delivered as **Alpha-61** of the 量枢院 (Liangshuyuan) Alpha task programme, organised per its
+> *Alpha Factor Development & Production Rules V2* (dev deliverables / production artifacts /
+> data guide / three-layer validation).
+
 [**简体中文**](README.md) · English
 
 [![CI](https://github.com/lavine888/oi-trend-ablation/actions/workflows/ci.yml/badge.svg)](https://github.com/lavine888/oi-trend-ablation/actions/workflows/ci.yml)
@@ -119,8 +123,11 @@ judgements, quantified roll contamination, and a one-command reproduction.
 - **Data** — market data and contract fields come from the PandaAI / pandata data service and
   remain the property of its provider. This repository keeps only a small evidence bundle of
   derived results (`results/`), not the raw market panel.
-- **Affiliation** — a personal research project; no affiliation with, or endorsement by,
-  PandaAI, 量枢院 or any exchange. Platform names appear only to describe the data source.
+- **Origin & affiliation** — this is the author's own deliverable for **Alpha-61, a task claimed
+  from the 量枢院 Alpha task platform**, structured per its *Alpha Factor Development & Production
+  Rules V2*. It is the author's research output: **not** an official publication of, or endorsed
+  by, 量枢院 or PandaAI, and not affiliated with any exchange. Platform names appear only to
+  describe the task and data source.
 - **Liability** — as set out in GPL-3.0, the code and results are provided *as is*, without
   warranty of any kind. Any decision made from them is the user's own responsibility.
 
