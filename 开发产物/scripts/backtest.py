@@ -58,13 +58,23 @@ def to_matrices(sig: pd.DataFrame) -> Dict[str, pd.DataFrame]:
     return mats
 
 
-def run_variant(mats: Dict[str, pd.DataFrame], col: str, cost: float) -> pd.DataFrame:
-    """返回逐日 gross/net 收益与换手。权重 t 日收盘确定，t+1 计收益。"""
+def run_variant(mats: Dict[str, pd.DataFrame], col: str, cost: float,
+                cost_bps: pd.Series | None = None) -> pd.DataFrame:
+    """返回逐日 gross/net 收益与换手。权重 t 日收盘确定，t+1 计收益。
+
+    cost       : 统一单边成本（小数，如 0.0005）
+    cost_bps   : 逐品种单边成本（bp 序列，按 symbol 对齐）；给出时覆盖 cost
+    """
     w = mats[col].fillna(0.0)
     r = mats["ret"].fillna(0.0)
     gross = (w.shift(1).fillna(0.0) * r).sum(axis=1)
-    turnover = (w - w.shift(1).fillna(0.0)).abs().sum(axis=1)
-    net = gross - turnover * cost
+    dw = (w - w.shift(1).fillna(0.0)).abs()
+    turnover = dw.sum(axis=1)
+    if cost_bps is not None:
+        vec = cost_bps.reindex(w.columns).fillna(cost_bps.mean()) / 1e4
+        net = gross - (dw * vec).sum(axis=1)
+    else:
+        net = gross - turnover * cost
     return pd.DataFrame({"gross": gross, "turnover": turnover, "net": net,
                          "gross_exposure": w.abs().sum(axis=1).shift(1).fillna(0.0)})
 

@@ -66,6 +66,38 @@ def main() -> int:
     else:
         check("外部复现结果存在", False, "缺 results/replication_cffex.json")
 
+    # 2010–2015 时间维度复现
+    r2p = RESULTS / "replication_2010_2015.json"
+    if r2p.exists():
+        r2 = json.loads(r2p.read_text(encoding="utf-8"))
+        d2 = r2["costs"]["5bp"]["delta_b1_minus_b0"]
+        check("2010–2015 复现为负", d2 < 0, f"Δ={d2:.3f}")
+        check("报告引用 2010–2015 复现数值", f"{d2:.3f}" in report, "报告中应出现该数值")
+    else:
+        check("2010–2015 复现结果存在", False, "缺 results/replication_2010_2015.json")
+
+    # 持仓替代构造：不允许有构造越过 +0.10 门槛
+    ov = RESULTS / "oi_variants.json"
+    if ov.exists():
+        o = json.loads(ov.read_text(encoding="utf-8"))
+        best = max((v["delta_vs_B0"] for k, v in o["results"].items() if not k.startswith("B0")), default=-9)
+        check("无持仓构造越过 +0.10", best < 0.10, f"最佳 Δ={best:+.3f}")
+        check("反向门同样为负", o["results"]["V4_反向门"]["delta_vs_B0"] < 0,
+              f"{o['results']['V4_反向门']['delta_vs_B0']:+.3f}")
+    else:
+        check("持仓替代构造结果存在", False, "缺 results/oi_variants.json")
+
+    # 逐品种费率：必须如实记录"符号随成本翻转"
+    cf = RESULTS / "cost_real_fees.json"
+    if cf.exists():
+        c = json.loads(cf.read_text(encoding="utf-8"))
+        lo = c["scenarios"]["fees_only"]["delta"]
+        hi = c["scenarios"]["fees_plus_2ticks"]["delta"]
+        check("费率检验记录了符号翻转", lo > 0 > hi, f"fees_only {lo:+.3f} / +2ticks {hi:+.3f}")
+        check("报告披露成本敏感性", "4.4bp" in report, "报告中应出现盈亏平衡成本")
+    else:
+        check("逐品种费率结果存在", False, "缺 results/cost_real_fees.json")
+
     frozen = json.loads((ROOT / "00_预注册_冻结记录.json").read_text(encoding="utf-8"))
     spec = ROOT / "00_预注册_研究设计与口径.md"
     actual = hashlib.sha256(spec.read_bytes()).hexdigest().upper()

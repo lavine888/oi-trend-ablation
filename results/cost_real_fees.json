@@ -1,0 +1,45 @@
+{
+  "generated_at": "2026-11-17T17:15:09+08:00",
+  "fee_source": "references/fee_schedule.csv",
+  "price_basis": "全样本 settlement 中位数",
+  "scenarios": {
+    "fees_only": {
+      "ticks_slippage": 0,
+      "cost_bps_median": 0.5,
+      "cost_bps_min": 0.1948431512632331,
+      "cost_bps_max": 2.0768431983385254,
+      "oos_sharpe_B0": 0.07887775120387464,
+      "oos_sharpe_B1": 0.2585354980270237,
+      "delta": 0.17965774682314906,
+      "oos_turnover_B0": 13.638802889576883,
+      "oos_turnover_B1": 26.678018575851393
+    },
+    "fees_plus_1tick": {
+      "ticks_slippage": 1,
+      "cost_bps_median": 3.466393195227339,
+      "cost_bps_min": 0.7964742738809537,
+      "cost_bps_max": 8.999653859466944,
+      "oos_sharpe_B0": 0.024655284046314115,
+      "oos_sharpe_B1": 0.07024816137715034,
+      "delta": 0.04559287733083622,
+      "oos_turnover_B0": 13.638802889576883,
+      "oos_turnover_B1": 26.678018575851393
+    },
+    "fees_plus_2ticks": {
+      "ticks_slippage": 2,
+      "cost_bps_median": 6.417715506616515,
+      "cost_bps_min": 1.3274571231349228,
+      "cost_bps_max": 15.922464520595362,
+      "oos_sharpe_B0": -0.02955565281530191,
+      "oos_sharpe_B1": -0.11745372087464503,
+      "delta": -0.08789806805934312,
+      "oos_turnover_B0": 13.638802889576883,
+      "oos_turnover_B1": 26.678018575851393
+    }
+  },
+  "uniform_5bp": {
+    "oos_sharpe_B0": -0.004668262759763915,
+    "oos_sharpe_B1": -0.032794706735841714,
+    "delta": -0.0281264439760778
+  }
+}
