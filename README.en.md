@@ -113,8 +113,16 @@ judgements, quantified roll contamination, and a one-command reproduction.
 
 ## Disclaimer
 
-Research and education only. Not affiliated with PandaAI, 量枢院 or any exchange. Historical
-backtest, **not investment advice**.
+- **Purpose** — a public record of a research method and its code, for study and education.
+  **Not investment advice**, not a recommendation, not an offer to trade. Past backtests do not
+  predict future returns.
+- **Data** — market data and contract fields come from the PandaAI / pandata data service and
+  remain the property of its provider. This repository keeps only a small evidence bundle of
+  derived results (`results/`), not the raw market panel.
+- **Affiliation** — a personal research project; no affiliation with, or endorsement by,
+  PandaAI, 量枢院 or any exchange. Platform names appear only to describe the data source.
+- **Liability** — as set out in GPL-3.0, the code and results are provided *as is*, without
+  warranty of any kind. Any decision made from them is the user's own responsibility.
 
 ## License
 
