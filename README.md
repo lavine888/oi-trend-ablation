@@ -18,7 +18,7 @@
 ![Replication](https://img.shields.io/badge/replication-CFFEX%20%CE%94%E2%88%920.165-dc2626)
 ![Gate](https://img.shields.io/badge/delivery%20gate-35%2F35-15803d)
 [![License](https://img.shields.io/badge/license-GPL--3.0-334155)](LICENSE)
-[![Release](https://img.shields.io/badge/release-v1.0.0-15803d)](https://github.com/lavine888/oi-trend-ablation/releases/tag/v1.0.0)
+[![Release](https://img.shields.io/badge/release-v1.1.0-15803d)](https://github.com/lavine888/oi-trend-ablation/releases/tag/v1.1.0)
 
 </div>
 
@@ -191,7 +191,7 @@ python scripts\refresh_production.py
 ```
 
 没有平台账号也能核对：`results/` 里是报告全部数字的原始出处；离线包见
-[Release v1.0.0](https://github.com/lavine888/oi-trend-ablation/releases/tag/v1.0.0)。
+[Release v1.1.0](https://github.com/lavine888/oi-trend-ablation/releases/tag/v1.1.0)。
 
 ## 仓库结构
 
