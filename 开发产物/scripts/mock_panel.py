@@ -30,7 +30,7 @@ RNG = np.random.default_rng(42)
 
 
 def main() -> None:
-    out = Path(os.getenv("ALPHA61_OUT") or (ft.ROOT / "output_mock"))
+    out = Path(os.getenv("ALPHA61_OUT") or (ft.ROOT / "_selftest_synthetic"))
     out.mkdir(parents=True, exist_ok=True)
 
     dates = pd.bdate_range("2016-01-04", "2025-12-31")

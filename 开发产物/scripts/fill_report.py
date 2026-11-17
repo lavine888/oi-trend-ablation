@@ -137,7 +137,7 @@ def render() -> str:
         L.append(f"| {names[k]} | {pct(b.get('ann_return'))} | {pct(b.get('ann_vol'))} | "
                  f"{f(b.get('sharpe'))} | {pct(b.get('max_dd'))} | {f(b.get('turnover_ann'),1)} | "
                  f"{pct(b.get('hit_rate'))} | {pct(b.get('cvar95'),2)} |")
-    L.append(f"| **Δ(B1−B0)** | {pct(d.get('ret_B1_minus_B0'))} | — | **{f(delta)}** | "
+    L.append(f"| **Δ(B1-B0)** | {pct(d.get('ret_B1_minus_B0'))} | — | **{f(delta)}** | "
              f"{pct(dd_delta)} | — | — | — |")
     L.append("")
     L.append(f"样本内（2016–2021）Sharpe：B0 {f(isw.get('B0',{}).get('sharpe'))} / "
@@ -150,7 +150,7 @@ def render() -> str:
     years = sorted(by_year)
     L.append("| 年份 | " + " | ".join(years) + " | 同号年数 |")
     L.append("|---" * (len(years) + 2) + "|")
-    L.append("| Δ(B1−B0) | " + " | ".join(f(by_year[y]) for y in years) + f" | {same_sign}/{len(years)} |")
+    L.append("| Δ(B1-B0) | " + " | ".join(f(by_year[y]) for y in years) + f" | {same_sign}/{len(years)} |")
     L.append("")
 
     # §4.3
@@ -170,7 +170,7 @@ def render() -> str:
     L.append("### 4.4 分层前向 5 日收益（按 `mom60`）")
     L.append("")
     if layers:
-        L.append("| 层 | " + " | ".join(str(x["layer"]) for x in layers) + " | 单调性 (5−1) |")
+        L.append("| 层 | " + " | ".join(str(x["layer"]) for x in layers) + " | 单调性 (5-1) |")
         L.append("|---" * (len(layers) + 2) + "|")
         L.append("| 均值 | " + " | ".join(pct(x["mean"], 3) for x in layers)
                  + f" | {pct(bt.get('layer_monotonicity'), 3)} |")
@@ -234,7 +234,7 @@ def render() -> str:
     L.append("")
 
     # §7
-    L.append("## 7. 价值验收")
+    L.append("## 7. 按预注册规则的自动判定")
     L.append("")
     decision = ("趋势信号必须经持仓同向扩张确认才建仓；未确认一律观望" if delta > 0.10
                 else "持仓确认门不值得作为独立数据源接入；继续只用价格趋势")

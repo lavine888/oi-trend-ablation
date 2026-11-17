@@ -33,11 +33,11 @@ net of 5bp per side:
 
 | OOS metric | Baseline B0 | B1 (+ OI gate) |
 |---|---:|---:|
-| Sharpe | −0.005 | **−0.033** |
+| Sharpe | -0.005 | **-0.033** |
 | Volatility | 7.2% | 4.1% |
-| Max drawdown | −17.7% | −10.1% |
+| Max drawdown | -17.7% | -10.1% |
 | Annual turnover | 13.6 | **26.7** |
-| **ΔSharpe** | — | **−0.028** |
+| **ΔSharpe** | — | **-0.028** |
 
 Break-even cost is **4.4bp per side**, below realistic Chinese futures friction
 (commission + one tick ≈ 5bp+). The gate only looks good in a near-zero-cost world.
@@ -46,7 +46,7 @@ Volatility and drawdown *do* improve — but that is just exposure halving: scal
 0.56 and you get the same risk profile without paying twice the turnover.
 
 **Replication:** the same parameters moved to CFFEX index and treasury futures (IC/IF/IH/TF/T,
-same split, same 5bp) give **ΔSharpe = −0.165**, negative at 2bp/5bp/10bp alike, with the same
+same split, same 5bp) give **ΔSharpe = -0.165**, negative at 2bp/5bp/10bp alike, with the same
 turnover doubling.
 
 ## Four independent judgements
@@ -54,8 +54,8 @@ turnover doubling.
 | Judgement | Result | Reading |
 |---|---|---|
 | Cross-sectional IC (auxiliary) | gate 0.0043; gated factor 0.0015, **below** raw momentum 0.0073 | the gate weakens the signal |
-| Conditional returns (primary) | confirmed +0.140% vs unconfirmed +0.177% (t = −0.78) | hypothesis points the wrong way |
-| Permutation test | 500 random gates; observed −0.028 inside null distribution (p = 0.11, 95th pct +0.089) | indistinguishable from "trade less" |
+| Conditional returns (primary) | confirmed +0.140% vs unconfirmed +0.177% (t = -0.78) | hypothesis points the wrong way |
+| Permutation test | 500 random gates; observed -0.028 inside null distribution (p = 0.11, 95th pct +0.089) | indistinguishable from "trade less" |
 | Parameter neighbourhood | 4×3 grid, only 3/12 cells positive, max +0.093 | not a tuning problem |
 
 ## Method
@@ -68,7 +68,7 @@ turnover doubling.
 | **P2** | permuted gate labels, 500 draws | null distribution |
 | **P3** | B1 rescaled to B0 volatility | rules out the low-exposure explanation |
 
-Returns use `settlement / pre_settlement − 1` (same contract, no roll jump). IS 2016–2021 fixes
+Returns use `settlement / pre_settlement - 1` (same contract, no roll jump). IS 2016–2021 fixes
 the universe; OOS 2022–2025 is evaluated once. Costs `Σ|Δw| × c`, primary 5bp.
 
 ## Quick start
@@ -110,7 +110,7 @@ judgements, quantified roll contamination, and a one-command reproduction.
 - Open interest is an exchange-wide aggregate: it cannot sign long vs short, and is **not**
   capital flow. Nothing here claims net inflow.
 - Costs are a uniform basis-point model; per-variety fees and tick sizes are not modelled.
-- The baseline itself fails out-of-sample (IS 0.625 → OOS −0.005), so this is "no evidence of
+- The baseline itself fails out-of-sample (IS 0.625 → OOS -0.005), so this is "no evidence of
   an edge", not "proof of a negative edge".
 - The OOS window was evaluated four times in practice (format/engineering/data defects);
   each is logged in report §10.

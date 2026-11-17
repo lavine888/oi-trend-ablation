@@ -56,10 +56,12 @@ def main() -> int:
     check("面板指纹出现在报告", str(panel["sha1"])[:12] in report, panel["sha1"][:12])
     check("面板行数与报告一致", "118,555" in report or "118555" in report, str(panel["rows"]))
 
+    cffex = float("nan")
+    r2015 = float("nan")
     repl_path = RESULTS / "replication_cffex.json"
     if repl_path.exists():
         repl = json.loads(repl_path.read_text(encoding="utf-8"))
-        rd = repl["costs"]["5bp"]["delta_b1_minus_b0"]
+        rd = cffex = repl["costs"]["5bp"]["delta_b1_minus_b0"]
         check("外部复现 ΔSharpe 为负", rd < 0, f"CFFEX Δ={rd:.3f}")
         check("报告引用复现数值", f"{rd:.3f}" in report, "报告中应出现该数值")
         check("复现品种数", len(repl["universe"]) >= 4, str(len(repl["universe"])))
@@ -70,7 +72,7 @@ def main() -> int:
     r2p = RESULTS / "replication_2010_2015.json"
     if r2p.exists():
         r2 = json.loads(r2p.read_text(encoding="utf-8"))
-        d2 = r2["costs"]["5bp"]["delta_b1_minus_b0"]
+        d2 = r2015 = r2["costs"]["5bp"]["delta_b1_minus_b0"]
         check("2010–2015 复现为负", d2 < 0, f"Δ={d2:.3f}")
         check("报告引用 2010–2015 复现数值", f"{d2:.3f}" in report, "报告中应出现该数值")
         sp = r2.get("splits", {})
@@ -124,6 +126,18 @@ def main() -> int:
               str(df["signal"].value_counts().to_dict()))
     else:
         check("生产 Parquet 存在", False, "缺失")
+
+    # README 与报告必须给出同一组数字（README 是门面，最容易漂）
+    readme_path = ROOT / "README.md"
+    if readme_path.exists():
+        readme = readme_path.read_text(encoding="utf-8")
+        check("README 引用主结果 ΔSharpe", f"{delta:.3f}" in readme, f"{delta:.3f}")
+        check("README 引用 CFFEX Δ", f"{cffex:.3f}" in readme, f"{cffex:.3f}")
+        check("README 引用 2010-2015 Δ", f"{r2015:.3f}" in readme, f"{r2015:.3f}")
+        check("README 引用盈亏平衡", "4.4bp" in readme)
+        check("README 无排版减号 U+2212", "\u2212" not in readme, "统一用 ASCII '-'，便于复制与检索")
+    else:
+        check("README 存在", False)
 
     print(f"\n{'全部通过' if not FAILS else '未通过：' + '；'.join(FAILS)}")
     return 0 if not FAILS else 1

@@ -15,6 +15,7 @@ token.tmp
 开发产物/output/
 开发产物/logs/
 开发产物/_selftest_synthetic/
+开发产物/output_mock/
 logs/
 output/
 *.log
